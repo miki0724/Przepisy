@@ -182,7 +182,7 @@ const Card = ({ id, name, image, price, deleteItem, editItem }) => {
         ) : (
           <>
             <h1 className="tytul">{name}</h1>
-            <h3>Opis: {price}</h3>
+            <p className="opisPrzepisu">{price}</p>
           </>
         )}
         {isEditing ? (
@@ -196,7 +196,7 @@ const Card = ({ id, name, image, price, deleteItem, editItem }) => {
           </>
         ) : (
           <button className="edit-button" onClick={handleEdit}>
-            Edytuj
+            E
           </button>
         )}
         <button className="delete-button" onClick={deleteItem}>

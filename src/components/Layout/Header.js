@@ -10,9 +10,6 @@ const Header = (props) => {
         <h1 className="tytulprzepis2">
           <a href="#dodaj">Dodaj przepis</a>
         </h1>
-        <h1 className="tytulprzepis2" href="">
-          Modyfikuj przepis
-        </h1>
       </header>
       <div className={classes["main-image"]}>
         <img src={mainheaderImage} alt="A table full of delicious food!" />
