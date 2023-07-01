@@ -89,13 +89,15 @@ a {
   margin-right: 10px;
 }
 .input-styledOpis {
-  width: 920px;
-  height: 100px;
   border: 3px solid #ccc;
   border-radius: 5px;
   padding: 10px;
   font-size: 18px;
   margin-right: 10px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .input-styledID {
   width: 170px;
@@ -114,6 +116,25 @@ a {
   padding: 10px;
   font-size: 18px;
   margin-right: 10px;
+}
+.input-styledPrzepis2 {
+  width: 300px;
+  height: 30px;
+  border: 3px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+  margin-right: 10px;
+}
+.styledOpis2 {
+  border: 3px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 18px;
+  margin-right: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .dodajPrzepis {
   background-color: #4caf50;
@@ -192,7 +213,37 @@ a {
   margin-right: 30px;
   margin-top: 30px;
 }
+.anuluj-button {
+  background-color: grey;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
 
+  margin-right: 30px;
+  margin-top: 30px;
+}
+.zmien-button {
+  background-color: #45a049;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 30px;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+.edit-button {
+  background-color: #45a049;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 30px;
+}
 .delete-button:hover {
   background-color: #45a049;
 }

@@ -1,3 +1,4 @@
+import ReactDOM from "react-dom";
 import MealItem from "./MealItem/MealItem";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -57,18 +58,38 @@ const PizzaMenu = () => {
     }
   };
 
+  const editItem = async (id, newName, newPrice) => {
+    try {
+      const response = await axios.put(
+        `https://restouracjaapi.azurewebsites.net/api/PizzaMenu/${id}`,
+        {
+          name: newName,
+          price: newPrice,
+        }
+      );
+      const updatedData = data.map((item) =>
+        item.id === id ? { ...item, name: newName, price: newPrice } : item
+      );
+      setData(updatedData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
       {data.map((item) => (
         <Card
           key={item.id}
+          id={item.id}
           name={item.name}
           image={item.image}
           price={item.price}
           deleteItem={() => deleteItem(item.id)}
+          editItem={editItem}
         />
       ))}
-      <div class="container__text2">
+      <div className="container__text2">
         <h1 className="tytulKonsola">Konsola dodawania nowych przepisów</h1>
         <div className="caloscDodawanie">
           <div className="card-2" id="dodaj">
@@ -98,12 +119,14 @@ const PizzaMenu = () => {
             </button>
           </div>
           <div className="opis">
-            <input
-              type="text"
+            <textarea
               placeholder="opis przepisu"
               value={newPrice}
               onChange={(e) => setNewPrice(e.target.value)}
-              className="input-styledOpis"
+              className="styledOpis"
+              wrap="hard"
+              rows="4"
+              cols="123"
             />
           </div>
         </div>
@@ -112,17 +135,76 @@ const PizzaMenu = () => {
   );
 };
 
-const Card = ({ name, image, price, deleteItem }) => (
-  <div class="container__text">
-    <div className="card">
-      <img src={image} alt={name} />
-      <h1 className="tytul">{name}</h1>
-      <h3>Opis: {price}</h3>
-      <button className="delete-button" onClick={deleteItem}>
-        Usuń
-      </button>
+const Card = ({ id, name, image, price, deleteItem, editItem }) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const [newName, setNewName] = useState(name);
+  const [newPrice, setNewPrice] = useState(price);
+
+  const handleEdit = () => {
+    setIsEditing(true);
+  };
+
+  const handleSave = () => {
+    editItem(id, newName, newPrice);
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    setIsEditing(false);
+    setNewName(name);
+    setNewPrice(price);
+  };
+
+  return (
+    <div className="container__text">
+      <div className="card">
+        <img src={image} alt={name} />
+        {isEditing ? (
+          <>
+            <input
+              type="text"
+              value={newName}
+              onChange={(e) => setNewName(e.target.value)}
+              className="input-styledPrzepis2"
+            />
+            <div className="opis2">
+              <textarea
+                placeholder="opis przepisu"
+                value={newPrice}
+                onChange={(e) => setNewPrice(e.target.value)}
+                className="styledOpis2"
+                wrap="hard"
+                rows="4"
+                cols="90"
+              />
+            </div>
+          </>
+        ) : (
+          <>
+            <h1 className="tytul">{name}</h1>
+            <h3>Opis: {price}</h3>
+          </>
+        )}
+        {isEditing ? (
+          <>
+            <button className="zmien-button" onClick={handleSave}>
+              Zapisz
+            </button>
+            <button className="anuluj-button" onClick={handleCancel}>
+              Anuluj
+            </button>
+          </>
+        ) : (
+          <button className="edit-button" onClick={handleEdit}>
+            Edytuj
+          </button>
+        )}
+        <button className="delete-button" onClick={deleteItem}>
+          Usuń
+        </button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default PizzaMenu;
